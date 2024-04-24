@@ -1,0 +1,160 @@
+import { Text, FieldValueList, Button, DateTimeDisplay, useTheme } from '@pega/cosmos-react-core';
+import PegaCustomComponentsMyDetailsTemplate from './index'; // ①
+import { pyReviewRawMetadata, pyReviewResolved, regionChildrenResolved } from './mock.stories';
+
+export default {
+  // ②
+  title: 'Tutorial Storybook for Details Layout Template',
+  component: PegaCustomComponentsMyDetailsTemplate
+};
+
+const Template = args => {
+  const regionAChildren = pyReviewRawMetadata.children[0].children.map(child => {
+    return Primary.args.getPConnect().createComponent(child);
+  }); // ①
+
+  const regionBChildren = pyReviewRawMetadata.children[0].children.map(child => {
+    return Primary.args.getPConnect().createComponent(child);
+  }); // ①
+
+  return (
+    <PegaCustomComponentsMyDetailsTemplate {...args}>
+      <Region>{regionAChildren}</Region>
+      <Region>{regionBChildren}</Region>
+    </PegaCustomComponentsMyDetailsTemplate>
+  );
+};
+
+export const Primary = Template.bind({}); // ③
+
+Primary.args = {
+  template: 'Pega_CustomComponents_MyDetailsTemplate',
+  showHighlightedData: true,
+  label: 'Test Details',
+  showLabel: 'true',
+  getPConnect: () => {
+    // ④
+    return {
+      getChildren: () => {
+        return pyReviewRawMetadata.children;
+      },
+      getRawMetadata: () => {
+        return pyReviewRawMetadata;
+      },
+      getInheritedProps: () => {
+        return pyReviewRawMetadata.config.inheritedProps;
+      },
+      createComponent: config => {
+        // ⑤
+        switch (config.config.value) {
+          case '@P .pyStatusWork':
+            return renderField(pyReviewResolved.highlightedData[0].config);
+          case '@P .pyID':
+            return renderField(pyReviewResolved.highlightedData[1].config);
+          case '@P .pxCreateDateTime':
+            return renderField(pyReviewResolved.highlightedData[2].config);
+          case '@USER .pxCreateOperator':
+            return renderField(pyReviewResolved.highlightedData[3].config);
+          case '@P .pySLADeadline':
+            return renderField(regionChildrenResolved[0]);
+          case '@P .pySLAGoal':
+            return renderField(regionChildrenResolved[1]);
+          case '@P .pySLAStartTime':
+            return renderField(regionChildrenResolved[2]);
+        }
+      },
+      setInheritedProp: () => {},
+      resolveConfigProps: () => {}
+    };
+  }
+};
+
+export const HighlightedData = Template.bind({}); // ④
+
+HighlightedData.storyName = 'Highlighted Fields Story'; // ⑤
+HighlightedData.parameters = { controls: { hideNoControlsWarning: true } };
+HighlightedData.args = {
+  showLabel: true,
+  label: 'Details Layout Label',
+  template: 'PegaCustomComponentsMyDetailsTemplate',
+  getPConnect: () => {
+    return {
+      getChildren: () => {
+        return pyReviewRawMetadata.children; // ①
+      },
+      getRawMetadata: () => {
+        return pyReviewRawMetadata; // ②
+      },
+      setInheritedProps: () => {}, // ③
+      getInheritedProps: () => {
+        // ③
+        return pyReviewRawMetadata.inheritedProps;
+      },
+      resolveConfigProps: configProps => {
+        return resolvedFields[configProps.config.value];
+      },
+      createComponent: config => {
+        // ④
+        return createComponent(config);
+      }
+    };
+  }
+};
+
+const renderField = resolvedProps => {
+  // ①
+
+  const {
+    displayAsStatus = false,
+    displayMode,
+    value = '',
+    label = '',
+    theme = useTheme()
+  } = resolvedProps;
+
+  const variant = displayMode === 'LABELS_LEFT' ? 'inline' : 'stacked'; // ②
+
+  let val =
+    value != '' ? (
+      <Text variant='h1' as='span'>
+        {value}
+      </Text>
+    ) : (
+      ''
+    );
+
+  if (label === 'Create date/time')
+    val = <DateTimeDisplay value={value} variant='datetime' format='long' clockFormat={null} />;
+
+  if (displayAsStatus === true) val = StatusWorkRenderer({ value }); // ③
+
+  if (label === 'Create Operator')
+    // ④
+    val = (
+      <Button
+        variant='link'
+        style={
+          label !== null
+            ? { width: 'max-content', height: theme.components.input.height }
+            : undefined
+        }
+      >
+        {value.userName}
+      </Button>
+    );
+
+  if (variant === 'inline') {
+    val = value || <span aria-hidden='true'>&ndash;&ndash;</span>;
+  } else {
+    val = (
+      <Text variant='h1' as='span'>
+        {val}
+      </Text>
+    );
+  }
+
+  return (
+    // ⑤
+    <FieldValueList variant={variant} fields={[{ name: label, value: val }]} />
+  );
+};

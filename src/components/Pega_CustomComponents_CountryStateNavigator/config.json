@@ -1,0 +1,30 @@
+{
+  "name": "Pega_CustomComponents_CountryStateNavigator",
+  "label": "Country State Navigator",
+  "description": "Country State Navigator",
+  "organization": "Pega",
+  "version": "01.01.01",
+  "library": "CustomComponents",
+  "allowedApplications": [],
+  "componentKey": "Pega_CustomComponents_CountryStateNavigator",
+  "type": "Widget",
+  "subtype": "PAGE",
+  "properties": [
+    {
+      "name": "headerText",
+      "label": "Header text",
+      "format": "TEXT",
+      "defaultValue": "@L Country and State Navigator"
+    }
+  ],
+  "defaultConfig": {
+    "target": "primary",
+    "countryList": {
+      "source": "@DATASOURCE D_pyCountryList.pxResults",
+      "fields": {
+        "name": "@P .pyFieldValue",
+        "value": "@P .pyLocalizedValue"
+      }
+    }
+  }
+}

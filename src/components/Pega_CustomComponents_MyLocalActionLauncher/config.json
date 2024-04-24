@@ -1,0 +1,32 @@
+{
+  "name": "Pega_CustomComponents_MyLocalActionLauncher",
+  "label": "My Local Action Launcher",
+  "description": "My Local Action Launcher",
+  "organization": "SampleCo",
+  "version": "01.01.01",
+  "library": "CustomComponents",
+  "allowedApplications": [],
+  "componentKey": "Pega_CustomComponents_MyLocalActionLauncher",
+  "type": "Field",
+  "subtype": "Text-URL",
+  "properties": [
+    {
+      "name": "buttonText",
+      "label": "Button Text",
+      "format": "TEXT",
+      "required": true
+    },
+    {
+      "name": "actionId",
+      "label": "Action ID",
+      "format": "TEXT",
+      "required": true
+    },
+    {
+      "name": "testId",
+      "label": "Test ID",
+      "format": "TEXT"
+    }
+  ],
+  "defaultConfig": {}
+}

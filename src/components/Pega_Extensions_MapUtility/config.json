@@ -1,0 +1,29 @@
+{
+  "name": "Pega_Extensions_MapUtility",
+  "label": "Map Utility",
+  "description": "Render a locations map in a widget",
+  "organization": "Pega",
+  "version": "1.0.0",
+  "library": "Extensions",
+  "allowedApplications": [],
+  "componentKey": "Pega_Extensions_MapUtility",
+  "type": "Widget",
+  "subtype": ["PAGE", "CASE"],
+  "properties": [
+    {
+      "name": "heading",
+      "label": "Heading",
+      "format": "TEXT"
+    },
+    {
+      "key": "incidentLocation",
+      "format": "PROPERTY",
+      "name": "incidentLocation",
+      "label": "Incident Location",
+      "required": true
+    }
+  ],
+  "defaultConfig": {
+    "heading": "Map Utility"
+  }
+}
