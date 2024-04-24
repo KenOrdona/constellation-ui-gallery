@@ -9,10 +9,9 @@ type MapUtilityProps = {
 export default function PegaExtensionsMapUtility(props: MapUtilityProps) {
   const { getPConnect, incidentLocation } = props;
 
-  const ctx = useMemo(
-    () => ({ name: 'google', apiKey: 'AIzaSyAROmkAnwdwkU2Iq2HHMt4WvPSe8NDOIkM' }),
-    [mapApiKey]
-  );
+  const mapApiKey: any = getPConnect().getGoogleMapsAPIKey();
+
+  const ctx = useMemo(() => ({ name: 'google', apiKey: mapApiKey }), [mapApiKey]);
 
   return (
     <Configuration>
