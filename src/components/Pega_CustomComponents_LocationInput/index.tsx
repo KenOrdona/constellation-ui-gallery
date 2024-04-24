@@ -3,11 +3,10 @@ import { LocationInput, MapsContext } from '@pega/cosmos-react-core';
 
 const LocationInputDemo = () => {
   const [value, setValue] = useState('');
-  const ctx = useMemo(
-    () => ({ name: 'google', apiKey: 'AIzaSyAROmkAnwdwkU2Iq2HHMt4WvPSe8NDOIkM' }),
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    ['']
-  );
+
+  const mapApiKey: any = getPConnect().getGoogleMapsAPIKey();
+
+  const ctx = useMemo(() => ({ name: 'google', apiKey: mapApiKey }), [mapApiKey]);
 
   return (
     <MapsContext.Provider value={ctx}>
