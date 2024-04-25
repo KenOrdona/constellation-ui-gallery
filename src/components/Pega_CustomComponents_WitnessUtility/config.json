@@ -4,14 +4,14 @@
   "description": "Witness Utility",
   "organization": "Pega",
   "version": "01.01.01",
-  "library": "CustomComponents",
-  "allowedApplications": [],
+  "library": "Extensions",
   "componentKey": "Pega_CustomComponents_WitnessUtility",
   "type": "Widget",
-  "subtype": "CASE",
+  "subtype": ["PAGE", "CASE"],
   "icon": "OneColumnPage.svg",
   "properties": [
     {
+      "key": "heading",
       "name": "heading",
       "label": "Heading",
       "format": "TEXT"

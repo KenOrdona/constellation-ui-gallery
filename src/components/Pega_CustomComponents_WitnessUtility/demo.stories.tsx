@@ -43,8 +43,6 @@ export const Default: Story = {
     setPCore();
     const props = {
       ...args,
-      witnessName: 'Test',
-      witnessPhone: '1234567890',
       getPConnect: () => {
         return {
           getContextName: () => '',
@@ -62,5 +60,9 @@ export const Default: Story = {
     };
     return <PegaCustomComponentsWitnessUtility {...props} />;
   },
-  args: {}
+  args: {
+    witnessName: 'Test',
+    witnessPhone: '1234567890',
+    heading: 'Witness Information'
+  }
 };
