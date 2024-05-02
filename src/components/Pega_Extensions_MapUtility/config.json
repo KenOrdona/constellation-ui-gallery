@@ -16,10 +16,10 @@
       "format": "TEXT"
     },
     {
-      "key": "incidentLocation",
+      "key": "location",
       "format": "PROPERTY",
-      "name": "incidentLocation",
-      "label": "Incident Location",
+      "name": "location",
+      "label": "Location",
       "required": true
     }
   ],
